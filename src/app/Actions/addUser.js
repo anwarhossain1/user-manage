@@ -3,12 +3,15 @@ export const addUser = (newUser) => (dispatch, getState) => {
     type: "ADD_USER_REQUEST",
   });
 
-  localStorage.setItem("Users", JSON.stringify(newUser));
-  const users = JSON.parse(localStorage.getItem("Users"));
-
+  //
+  // const users = JSON.parse(localStorage.getItem("Users"));
+  localStorage.setItem(
+    "Users",
+    JSON.stringify(getState().addUserReducer.users)
+  );
   dispatch({
     type: "ADD_USER_SUCCESS",
-    payload: users,
+    payload: newUser,
   });
 
   console.log(newUser);

@@ -19,18 +19,16 @@ const Index = () => {
   const [phone, setPhone] = useState(0);
   const [roles, setRoles] = useState("");
   const dispatch = useDispatch();
-  const newUser = [
-    {
-      id: 1,
-      name: name,
-      email: email,
-      phone: phone,
-      roles: roles,
-      addedBy: "asdad",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-  ];
+  const newUser = {
+    id: 1,
+    name: name,
+    email: email,
+    phone: phone,
+    roles: roles,
+    addedBy: "asdad",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
 
   const formHandler = (e) => {
     e.preventDefault();
