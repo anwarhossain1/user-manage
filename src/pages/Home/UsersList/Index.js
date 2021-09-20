@@ -8,6 +8,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import EditIcon from "@mui/icons-material/Edit";
+import { IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { pink } from "@mui/material/colors";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -34,6 +38,9 @@ const Index = () => {
   const { users } = userDataFromState;
   // const userState = JSON.parse(localStorage.getItem("Users"));
 
+  const deleteUser = () => {
+    console.log("delete pressed");
+  };
   return (
     <div>
       UsersList
@@ -66,7 +73,15 @@ const Index = () => {
                     <StyledTableCell>{user.addedBy}</StyledTableCell>
                     <StyledTableCell>{user.createdAt}</StyledTableCell>
                     <StyledTableCell>{user.updatedAt}</StyledTableCell>
-                    <StyledTableCell>Ache kisu</StyledTableCell>
+                    <IconButton>
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton>
+                      <DeleteIcon
+                        sx={{ color: pink[500] }}
+                        onClick={deleteUser}
+                      />
+                    </IconButton>
                   </StyledTableRow>
                 );
               })}
