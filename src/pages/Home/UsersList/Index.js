@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -12,7 +12,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { pink } from "@mui/material/colors";
-
+import { deleteUser } from "../../../app/Actions/addUser";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -34,13 +34,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const Index = () => {
+  const [username, setUsername] = useState("");
   const userDataFromState = useSelector((state) => state.addUserReducer);
   const { users } = userDataFromState;
   // const userState = JSON.parse(localStorage.getItem("Users"));
+  const dispatch = useDispatch();
 
-  const deleteUser = () => {
-    console.log("delete pressed");
-  };
   return (
     <div>
       UsersList
@@ -64,7 +63,7 @@ const Index = () => {
             {users &&
               users.map((user) => {
                 return (
-                  <StyledTableRow key={user.id}>
+                  <StyledTableRow key={user.name}>
                     <StyledTableCell>{user.id}</StyledTableCell>
                     <StyledTableCell>{user.name}</StyledTableCell>
                     <StyledTableCell>{user.email}</StyledTableCell>
@@ -76,11 +75,15 @@ const Index = () => {
                     <IconButton>
                       <EditIcon />
                     </IconButton>
-                    <IconButton>
-                      <DeleteIcon
-                        sx={{ color: pink[500] }}
-                        onClick={deleteUser}
-                      />
+                    <IconButton
+                      onClick={() => {
+                        console.log("delete pressed");
+                        setUsername(user.name);
+                        console.log(user.name);
+                        dispatch(deleteUser(username));
+                      }}
+                    >
+                      <DeleteIcon sx={{ color: pink[500] }} />
                     </IconButton>
                   </StyledTableRow>
                 );

@@ -11,6 +11,14 @@ export const addUserReducer = (state = { users: [] }, action) => {
 
         users: [...state.users, action.payload],
       };
+    case "DELETE_USER_SUCCESS":
+      return {
+        ...state,
+
+        users: state.users.filter((item) => {
+          return item.name !== action.payload;
+        }),
+      };
     default:
       return state;
   }
