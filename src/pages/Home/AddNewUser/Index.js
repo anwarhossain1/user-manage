@@ -11,15 +11,30 @@ import Card from "@mui/material/Card";
 import { Box, width } from "@mui/system";
 import { FormControl } from "@mui/material";
 import React, { useState } from "react";
-
+import { useDispatch } from "react-redux";
+import { addUser } from "../../../app/Actions/addUser";
 const Index = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState(0);
   const [roles, setRoles] = useState("");
+  const dispatch = useDispatch();
+  const newUser = [
+    {
+      id: 1,
+      name: name,
+      email: email,
+      phone: phone,
+      roles: roles,
+      addedBy: "asdad",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+  ];
 
   const formHandler = (e) => {
     e.preventDefault();
+    dispatch(addUser(newUser));
     console.log(name + email + phone + roles);
   };
   return (
