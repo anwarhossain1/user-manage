@@ -1,6 +1,6 @@
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
-
+import "@testing-library/jest-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,7 +25,9 @@ const Login = () => {
           justify="center"
           style={{ minHeight: "100vh" }}
         >
-          <Typography variant="h5">Login</Typography>
+          <Typography variant="h5" data-testid="login">
+            Login
+          </Typography>
           <Grid item xs={12}>
             <TextField
               required
@@ -35,6 +37,8 @@ const Login = () => {
               placeholder="super@gmail.com"
               sx={{ mt: 2 }}
               onChange={(e) => setEmail(e.target.value)}
+              data-testid="email-input"
+              type="email"
             />
           </Grid>
 
@@ -47,6 +51,7 @@ const Login = () => {
               sx={{ mt: 2 }}
               placeholder="1234"
               onChange={(e) => setPassword(e.target.value)}
+              data-testid="password-input"
             />
           </Grid>
           <Button

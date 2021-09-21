@@ -51,8 +51,8 @@ const Index = () => {
     phone: phone,
     roles: roles,
     addedBy: "asdad",
-    createdAt: new Date().toString(),
-    updatedAt: new Date().toString(),
+    createdAt: new Date().toISOString().substring(0, 10),
+    updatedAt: new Date().toISOString().substring(0, 10),
   };
 
   const formHandler = (e) => {
