@@ -16,7 +16,7 @@ export const addUserReducer = (state = { users: [] }, action) => {
         ...state,
 
         users: state.users.filter((item) => {
-          return item.name !== action.payload;
+          return item.id !== action.payload;
         }),
       };
     default:

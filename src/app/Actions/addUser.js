@@ -17,10 +17,10 @@ export const addUser = (newUser) => (dispatch, getState) => {
   console.log(newUser);
 };
 
-export const deleteUser = (username) => (dispatch, getState) => {
+export const deleteUser = (userId) => (dispatch, getState) => {
   dispatch({
     type: "DELETE_USER_SUCCESS",
-    payload: username,
+    payload: userId,
   });
   localStorage.setItem(
     "Users",

@@ -11,6 +11,7 @@ import Card from "@mui/material/Card";
 import { Box, width } from "@mui/system";
 import { FormControl } from "@mui/material";
 import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../../app/Actions/addUser";
 const Index = () => {
@@ -20,7 +21,7 @@ const Index = () => {
   const [roles, setRoles] = useState("");
   const dispatch = useDispatch();
   const newUser = {
-    id: 1,
+    id: uuidv4(),
     name: name,
     email: email,
     phone: phone,

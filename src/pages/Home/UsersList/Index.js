@@ -9,10 +9,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import EditIcon from "@mui/icons-material/Edit";
-import { IconButton } from "@mui/material";
+import { IconButton, TextField, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { pink } from "@mui/material/colors";
 import { deleteUser } from "../../../app/Actions/addUser";
+import { Link } from "react-router-dom";
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -39,12 +41,34 @@ const Index = () => {
   const { users } = userDataFromState;
   // const userState = JSON.parse(localStorage.getItem("Users"));
   const dispatch = useDispatch();
+  const [search, setSearch] = useState("");
+
+  let filteredUsers;
+  //filtering users
+  if (search) {
+    filteredUsers = users.filter((user) => {
+      return (
+        user.name.toLowerCase().includes(search) ||
+        user.email.toLowerCase().includes(search) ||
+        user.phone.toLowerCase().includes(search)
+      );
+    });
+  } else {
+    filteredUsers = users;
+  }
 
   return (
     <div>
-      UsersList
-      {users.length}
-      <TableContainer component={Paper}>
+      <Typography variant="h3">Users List</Typography>
+      <TextField
+        id="standard-basic"
+        label="Search Users"
+        variant="standard"
+        sx={{ width: "40%" }}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+
+      <TableContainer component={Paper} sx={{ mt: 3 }}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
@@ -60,8 +84,8 @@ const Index = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users &&
-              users.map((user) => {
+            {filteredUsers &&
+              filteredUsers.map((user) => {
                 return (
                   <StyledTableRow key={user.name}>
                     <StyledTableCell>{user.id}</StyledTableCell>
@@ -72,15 +96,17 @@ const Index = () => {
                     <StyledTableCell>{user.addedBy}</StyledTableCell>
                     <StyledTableCell>{user.createdAt}</StyledTableCell>
                     <StyledTableCell>{user.updatedAt}</StyledTableCell>
-                    <IconButton>
-                      <EditIcon />
-                    </IconButton>
+                    <Link to="/updateuser">
+                      <IconButton>
+                        <EditIcon />
+                      </IconButton>
+                    </Link>
                     <IconButton
                       onClick={() => {
                         console.log("delete pressed");
                         setUsername(user.name);
                         console.log(user.name);
-                        dispatch(deleteUser(username));
+                        dispatch(deleteUser(user.id));
                       }}
                     >
                       <DeleteIcon sx={{ color: pink[500] }} />
