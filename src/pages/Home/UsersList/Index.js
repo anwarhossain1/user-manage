@@ -9,7 +9,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import EditIcon from "@mui/icons-material/Edit";
-import { IconButton, TextField, Typography } from "@mui/material";
+import { IconButton, TextField, Typography, Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { pink } from "@mui/material/colors";
 import { deleteUser } from "../../../app/Actions/addUser";
@@ -59,6 +59,11 @@ const Index = () => {
 
   return (
     <div>
+      <Link to="/addnewuser">
+        <Button color="primary" variant="contained">
+          Add New User
+        </Button>
+      </Link>
       <Typography variant="h3">Users List</Typography>
       <TextField
         id="standard-basic"
@@ -96,7 +101,7 @@ const Index = () => {
                     <StyledTableCell>{user.addedBy}</StyledTableCell>
                     <StyledTableCell>{user.createdAt}</StyledTableCell>
                     <StyledTableCell>{user.updatedAt}</StyledTableCell>
-                    <Link to="/updateuser">
+                    <Link to={`/updateuser/${user.id}`}>
                       <IconButton>
                         <EditIcon />
                       </IconButton>

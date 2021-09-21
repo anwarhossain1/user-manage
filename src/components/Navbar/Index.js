@@ -11,9 +11,14 @@ const Index = () => {
       <Box>
         <AppBar position="static">
           <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              <Link to="/">DurBinLab-Test</Link>
-            </Typography>
+            <Link
+              to="/"
+              style={{ textDecoration: "none", textAlign: "center" }}
+            >
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                DurBinLab-Test
+              </Typography>
+            </Link>
           </Toolbar>
         </AppBar>
       </Box>

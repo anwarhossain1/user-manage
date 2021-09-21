@@ -10,15 +10,9 @@ const Index = () => {
   return (
     <div>
       <Box sx={{ m: 4 }}>
-        <Button color="primary" variant="contained">
-          <Link style={{ textDecoration: "none" }} to="/addnewuser">
-            Add New User
-          </Link>
-        </Button>
-
         <Switch>
           <Route path="/addnewuser" component={AddNewUser} />
-          <Route path="/updateuser" component={UpdateUser} />
+          <Route path="/updateuser/:id" component={UpdateUser} />
           <Route path="/" active component={UsersList} />
         </Switch>
       </Box>

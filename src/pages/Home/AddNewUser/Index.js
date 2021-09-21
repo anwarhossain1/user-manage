@@ -14,6 +14,8 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../../app/Actions/addUser";
+import { Link } from "react-router-dom";
+
 const Index = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -54,8 +56,9 @@ const Index = () => {
               <form type="submit" onSubmit={formHandler}>
                 <Grid item xs={12}>
                   <FormControl>
-                    <InputLabel>Name</InputLabel>
+                    <InputLabel required>Name</InputLabel>
                     <Input
+                      required
                       type="text"
                       onChange={(e) => setName(e.target.value)}
                     />
@@ -63,8 +66,9 @@ const Index = () => {
                 </Grid>
                 <Grid item xs={12} sx={{ m: 3 }}>
                   <FormControl>
-                    <InputLabel>Email</InputLabel>
+                    <InputLabel required>Email</InputLabel>
                     <Input
+                      required
                       type="email"
                       onChange={(e) => setEmail(e.target.value)}
                     />
@@ -72,8 +76,9 @@ const Index = () => {
                 </Grid>
                 <Grid item xs={12} sx={{ m: 3 }}>
                   <FormControl>
-                    <InputLabel>Phone</InputLabel>
+                    <InputLabel required>Phone</InputLabel>
                     <Input
+                      required
                       type="number"
                       onChange={(e) => setPhone(e.target.value)}
                     />
@@ -81,18 +86,29 @@ const Index = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl>
-                    <InputLabel>Roles</InputLabel>
+                    <InputLabel required>Roles</InputLabel>
                     <Input
+                      required
                       type="text"
                       onChange={(e) => setRoles(e.target.value)}
                     />
                   </FormControl>
                 </Grid>
+                <Link to="/">
+                  <Button
+                    color="warning"
+                    type="submit"
+                    variant="contained"
+                    sx={{ mt: 5, mr: 1, minWidth: "6vw" }}
+                  >
+                    Go Home
+                  </Button>
+                </Link>
                 <Button
-                  color="primary"
+                  color="success"
                   type="submit"
                   variant="contained"
-                  sx={{ m: 5 }}
+                  sx={{ mt: 5, minWidth: "6vw" }}
                 >
                   Save
                 </Button>

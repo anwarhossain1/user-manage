@@ -10,19 +10,30 @@ import {
 import Card from "@mui/material/Card";
 import { Box, width } from "@mui/system";
 import { FormControl } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../../../app/Actions/addUser";
-const Index = () => {
+const Index = ({ match }) => {
+  const userid = match.params.id;
+  console.log(userid);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState(0);
   const [roles, setRoles] = useState("");
   const dispatch = useDispatch();
 
-  const newUser = {
-    id: uuidv4(),
+  const userDatafromState = useSelector((state) => state.addUserReducer);
+  const { users } = userDatafromState;
+
+  console.log(users);
+
+  let upUser = users.find((user) => {
+    return user.id === userid;
+  });
+
+  const updatedUser = {
+    id: userid,
     name: name,
     email: email,
     phone: phone,
@@ -34,7 +45,7 @@ const Index = () => {
 
   const formHandler = (e) => {
     e.preventDefault();
-    dispatch(addUser(newUser));
+    dispatch(addUser(updatedUser));
     console.log(name + email + phone + roles);
   };
   return (
@@ -42,7 +53,7 @@ const Index = () => {
       <Box sx={{ mt: 5 }}>
         <Typography variant="h3">Update User</Typography>
         <hr />
-        <Card style={{ overflow: "visible" }}>
+        <Card>
           <CardContent>
             <Grid
               container
@@ -50,7 +61,7 @@ const Index = () => {
               direction="column"
               alignItems="center"
               justify="center"
-              style={{ minHeight: "100vh" }}
+              style={{ minWidth: "50vw" }}
             >
               <form type="submit" onSubmit={formHandler}>
                 <Grid item xs={12}>
@@ -58,7 +69,7 @@ const Index = () => {
                     <InputLabel>Name</InputLabel>
                     <Input
                       type="text"
-                      value="anwar"
+                      defaultValue={upUser.name}
                       placeholder=""
                       onChange={(e) => setName(e.target.value)}
                     />
@@ -68,6 +79,7 @@ const Index = () => {
                   <FormControl>
                     <InputLabel>Email</InputLabel>
                     <Input
+                      defaultValue={upUser.email}
                       type="email"
                       onChange={(e) => setEmail(e.target.value)}
                     />
@@ -77,6 +89,7 @@ const Index = () => {
                   <FormControl>
                     <InputLabel>Phone</InputLabel>
                     <Input
+                      defaultValue={upUser.phone}
                       type="number"
                       onChange={(e) => setPhone(e.target.value)}
                     />
@@ -86,6 +99,7 @@ const Index = () => {
                   <FormControl>
                     <InputLabel>Roles</InputLabel>
                     <Input
+                      defaultValue={upUser.roles}
                       type="text"
                       onChange={(e) => setRoles(e.target.value)}
                     />
@@ -97,7 +111,7 @@ const Index = () => {
                   variant="contained"
                   sx={{ m: 5 }}
                 >
-                  Save
+                  Update
                 </Button>
               </form>
             </Grid>
