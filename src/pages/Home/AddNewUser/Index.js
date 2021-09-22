@@ -5,6 +5,8 @@ import {
   Grid,
   Input,
   InputLabel,
+  MenuItem,
+  Select,
   Typography,
 } from "@mui/material";
 import Card from "@mui/material/Card";
@@ -33,6 +35,7 @@ const Index = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState(0);
   const [roles, setRoles] = useState("");
+  const [type, setType] = useState("");
   //modal
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -42,15 +45,20 @@ const Index = () => {
       alert("Please Input All Of The Fields");
     }
   };
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    window.location.href = "/";
+  };
   const dispatch = useDispatch();
   const newUser = {
     id: uuidv4(),
+    type: type,
     name: name,
     email: email,
     phone: phone,
     roles: roles,
     addedBy: "asdad",
+    status: "enable",
     createdAt: new Date().toISOString().substring(0, 10),
     updatedAt: new Date().toISOString().substring(0, 10),
   };
@@ -73,7 +81,7 @@ const Index = () => {
               direction="column"
               alignItems="center"
               justify="center"
-              style={{ minHeight: "100vh" }}
+              style={{ minHeight: "50vh" }}
             >
               <form type="submit" onSubmit={formHandler}>
                 <Grid item xs={12}>
@@ -116,7 +124,30 @@ const Index = () => {
                     />
                   </FormControl>
                 </Grid>
-                <Link to="/">
+                <Grid item xs={12}>
+                  <FormControl>
+                    <InputLabel sx={{ mt: 3 }} required>
+                      Types
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={type}
+                      label="types"
+                      sx={{ minWidth: "10vw", mt: 3 }}
+                      onChange={(e) => setType(e.target.value)}
+                    >
+                      <MenuItem value="super">Super Admin</MenuItem>
+                      <MenuItem value="admin">Admin</MenuItem>
+                      <MenuItem value="a">A</MenuItem>
+                      <MenuItem value="b">B</MenuItem>
+                      <MenuItem value="c">C</MenuItem>
+                      <MenuItem value="d">D</MenuItem>
+                      <MenuItem value="e">E</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Link to="/" style={{ textDecoration: "none" }}>
                   <Button
                     color="warning"
                     type="submit"

@@ -8,7 +8,7 @@ const Login = () => {
     e.preventDefault();
 
     if (email === "super@gmail.com" && password === "1234") {
-      window.location.href = "/";
+      window.location.href = "/home";
     } else {
       alert("Enter Inputs From Placeholders");
     }

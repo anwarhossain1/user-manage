@@ -6,6 +6,8 @@ import {
   Input,
   InputLabel,
   Typography,
+  MenuItem,
+  Select,
 } from "@mui/material";
 import Card from "@mui/material/Card";
 import { Box, width } from "@mui/system";
@@ -22,6 +24,8 @@ const Index = ({ match }) => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState(0);
   const [roles, setRoles] = useState("");
+  const [type, setType] = useState("");
+  const [status, setStatus] = useState("");
   const dispatch = useDispatch();
 
   const userDatafromState = useSelector((state) => state.addUserReducer);
@@ -35,10 +39,12 @@ const Index = ({ match }) => {
 
   const updatedUser = {
     id: userid,
+    type: type ? type : upUser.type,
     name: name ? name : upUser.name,
     email: email ? email : upUser.email,
     phone: phone ? phone : upUser.phone,
     roles: roles ? roles : upUser.roles,
+    status: status ? status : upUser.status,
     addedBy: "asdad",
     createdAt: new Date().toString(),
     updatedAt: new Date().toString(),
@@ -107,6 +113,47 @@ const Index = ({ match }) => {
                         type="text"
                         onChange={(e) => setRoles(e.target.value)}
                       />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormControl>
+                      <InputLabel sx={{ mt: 3 }} required>
+                        Types
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={upUser.type}
+                        label="types"
+                        sx={{ minWidth: "11vw", mt: 3 }}
+                        onChange={(e) => setType(e.target.value)}
+                      >
+                        <MenuItem value="super">Super Admin</MenuItem>
+                        <MenuItem value="admin">Admin</MenuItem>
+                        <MenuItem value="a">A</MenuItem>
+                        <MenuItem value="b">B</MenuItem>
+                        <MenuItem value="c">C</MenuItem>
+                        <MenuItem value="d">D</MenuItem>
+                        <MenuItem value="e">E</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormControl>
+                      <InputLabel sx={{ mt: 3 }} required>
+                        Status
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={upUser.status}
+                        label="status"
+                        sx={{ minWidth: "11vw", mt: 3 }}
+                        onChange={(e) => setStatus(e.target.value)}
+                      >
+                        <MenuItem value="enable">Enable</MenuItem>
+                        <MenuItem value="disable">Disable</MenuItem>
+                      </Select>
                     </FormControl>
                   </Grid>
                   <Button

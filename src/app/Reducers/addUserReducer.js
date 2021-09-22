@@ -44,10 +44,12 @@ export const addUserReducer = (state = { users: [] }, action) => {
             return {
               ...user,
               id: action.payload.id,
+              type: action.payload.type,
               name: action.payload.name,
               email: action.payload.email,
               phone: action.payload.phone,
               roles: action.payload.roles,
+              status: action.payload.status,
             };
           }
         }),

@@ -9,7 +9,15 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import EditIcon from "@mui/icons-material/Edit";
-import { IconButton, TextField, Typography, Button } from "@mui/material";
+import {
+  IconButton,
+  TextField,
+  Typography,
+  Button,
+  Alert,
+  AlertTitle,
+  Grid,
+} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { pink } from "@mui/material/colors";
 import { deleteUser } from "../../../app/Actions/addUser";
@@ -59,12 +67,14 @@ const Index = () => {
 
   return (
     <div>
-      <Link to="/addnewuser">
+      <Link to="/addnewuser" style={{ textDecoration: "none" }}>
         <Button color="primary" variant="contained">
           Add New User
         </Button>
       </Link>
-      <Typography variant="h3">Users List</Typography>
+      <Typography sx={{ mt: 3 }} variant="h3">
+        Users List[{filteredUsers.length}]
+      </Typography>
       <TextField
         id="standard-basic"
         label="Search Users By Name/Email/Phone Number"
@@ -73,55 +83,87 @@ const Index = () => {
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      <TableContainer component={Paper} sx={{ mt: 3 }}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Type</StyledTableCell>
-              <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell>Email</StyledTableCell>
-              <StyledTableCell>Phone</StyledTableCell>
-              <StyledTableCell>Roles</StyledTableCell>
-              <StyledTableCell>AddedBy</StyledTableCell>
-              <StyledTableCell>CreatedAt</StyledTableCell>
-              <StyledTableCell>UpdatedAt</StyledTableCell>
-              <StyledTableCell>Action</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {filteredUsers &&
-              filteredUsers.map((user) => {
-                return (
-                  <StyledTableRow key={user.name}>
-                    <StyledTableCell>{user.id}</StyledTableCell>
-                    <StyledTableCell>{user.name}</StyledTableCell>
-                    <StyledTableCell>{user.email}</StyledTableCell>
-                    <StyledTableCell>{user.phone}</StyledTableCell>
-                    <StyledTableCell>{user.roles}</StyledTableCell>
-                    <StyledTableCell>{user.addedBy}</StyledTableCell>
-                    <StyledTableCell>{user.createdAt}</StyledTableCell>
-                    <StyledTableCell>{user.updatedAt}</StyledTableCell>
-                    <Link to={`/updateuser/${user.id}`}>
-                      <IconButton>
-                        <EditIcon />
+      {filteredUsers.length > 0 ? (
+        <TableContainer component={Paper} sx={{ mt: 3 }}>
+          <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Type</StyledTableCell>
+                <StyledTableCell>Name</StyledTableCell>
+                <StyledTableCell>Email</StyledTableCell>
+                <StyledTableCell>Phone</StyledTableCell>
+                <StyledTableCell>Roles</StyledTableCell>
+                <StyledTableCell>AddedBy</StyledTableCell>
+                <StyledTableCell>CreatedAt</StyledTableCell>
+                <StyledTableCell>UpdatedAt</StyledTableCell>
+                <StyledTableCell>Status</StyledTableCell>
+                <StyledTableCell>Action</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredUsers &&
+                filteredUsers.map((user) => {
+                  return (
+                    <StyledTableRow key={user.name}>
+                      <StyledTableCell>{user.type}</StyledTableCell>
+                      <StyledTableCell>{user.name}</StyledTableCell>
+                      <StyledTableCell>{user.email}</StyledTableCell>
+                      <StyledTableCell>{user.phone}</StyledTableCell>
+                      <StyledTableCell>{user.roles}</StyledTableCell>
+                      <StyledTableCell>{user.addedBy}</StyledTableCell>
+                      <StyledTableCell>{user.createdAt}</StyledTableCell>
+                      <StyledTableCell>{user.updatedAt}</StyledTableCell>
+                      <StyledTableCell>
+                        {user.status === "enable" ? (
+                          <span style={{ color: "green" }}>Enabled</span>
+                        ) : (
+                          <span style={{ color: "red" }}>Disabled</span>
+                        )}
+                      </StyledTableCell>
+
+                      <Link to={`/updateuser/${user.id}`}>
+                        <IconButton>
+                          <EditIcon />
+                        </IconButton>
+                      </Link>
+                      <IconButton
+                        onClick={() => {
+                          console.log("delete pressed");
+                          setUsername(user.name);
+                          console.log(user.name);
+                          dispatch(deleteUser(user.id));
+                        }}
+                      >
+                        <DeleteIcon sx={{ color: pink[500] }} />
                       </IconButton>
-                    </Link>
-                    <IconButton
-                      onClick={() => {
-                        console.log("delete pressed");
-                        setUsername(user.name);
-                        console.log(user.name);
-                        dispatch(deleteUser(user.id));
-                      }}
-                    >
-                      <DeleteIcon sx={{ color: pink[500] }} />
-                    </IconButton>
-                  </StyledTableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                    </StyledTableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      ) : (
+        <Grid
+          container
+          spacing={0}
+          direction="column"
+          alignItems="center"
+          justify="center"
+          style={{ minHeight: "100vh" }}
+        >
+          <Alert
+            style={{
+              width: "50vw",
+              justifyContent: "center",
+              margin: "15px",
+            }}
+            variant="filled"
+            severity="warning"
+          >
+            No Users Found.
+          </Alert>
+        </Grid>
+      )}
     </div>
   );
 };
