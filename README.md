@@ -23,6 +23,8 @@ yarn start or npm start
 - **Redux**- For giving the store's access to the class components, redux has been used as a state management tools which efficiently handles data flow and manupulates them into the state.
 - **Local Storage**- Local storage has been used for storing user's data in browser's local storage.
 
+- **Material Ui**- Material Ui has been used as a css framework.
+
 ###### Testing
 
 - **JEST**- For unit testing and accessing **DOM**, JEST has been used. It is often good enough for testing React components.
