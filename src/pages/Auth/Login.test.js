@@ -2,6 +2,7 @@ import React from "react";
 import { render, fireEvent, within, screen } from "@testing-library/react";
 import Login from "./Login";
 import userEvent from "@testing-library/user-event";
+import "@testing-library/jest-dom/extend-expect";
 describe("<Login/>", () => {
   it("checking render", () => {
     render(<Login />);

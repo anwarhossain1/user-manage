@@ -28,3 +28,17 @@ export const deleteUser = (userId) => (dispatch, getState) => {
     JSON.stringify(getState().addUserReducer.users)
   );
 };
+
+export const updateUser = (updatedUser) => (dispatch, getState) => {
+  dispatch({
+    type: "UPDATE_USER_SUCCESS",
+    payload: updatedUser,
+  });
+  console.log(updateUser);
+  localStorage.setItem(
+    "Users",
+    JSON.stringify(getState().addUserReducer.users)
+  );
+
+  window.location.href = "/";
+};

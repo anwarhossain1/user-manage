@@ -33,6 +33,26 @@ export const addUserReducer = (state = { users: [] }, action) => {
         }),
       };
 
+    case "UPDATE_USER_SUCCESS":
+      return {
+        ...state,
+        users: state.users.map((user) => {
+          if (user.id !== action.payload.id) {
+            return user;
+          } else {
+            console.log(user + 25);
+            return {
+              ...user,
+              id: action.payload.id,
+              name: action.payload.name,
+              email: action.payload.email,
+              phone: action.payload.phone,
+              roles: action.payload.roles,
+            };
+          }
+        }),
+      };
+
     default:
       return state;
   }
